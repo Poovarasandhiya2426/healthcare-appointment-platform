@@ -16,6 +16,7 @@ import com.healthcare.appointment.service.AppointmentService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import lombok.RequiredArgsConstructor;
@@ -55,7 +56,10 @@ public class AppointmentController {
     // 2. Update existing appointment
     @PutMapping("/{appointmentId}")
     public ResponseEntity<ApiResponse<AppointmentResponse>> updateAppointment(
-            @PathVariable Long appointmentId,
+            @PathVariable
+            @Positive(message = "Appointment ID must be greater than zero")
+            Long appointmentId,
+
             @Valid @RequestBody AppointmentUpdateRequest request) {
 
         AppointmentResponse response =
@@ -75,7 +79,10 @@ public class AppointmentController {
     // 3. Reschedule appointment
     @PutMapping("/{appointmentId}/reschedule")
     public ResponseEntity<ApiResponse<AppointmentResponse>> rescheduleAppointment(
-            @PathVariable Long appointmentId,
+            @PathVariable
+            @Positive(message = "Appointment ID must be greater than zero")
+            Long appointmentId,
+
             @Valid @RequestBody AppointmentRescheduleRequest request) {
 
         AppointmentResponse response =
@@ -95,10 +102,16 @@ public class AppointmentController {
     // 4. Cancel appointment
     @PatchMapping("/{appointmentId}/cancel")
     public ResponseEntity<ApiResponse<AppointmentResponse>> cancelAppointment(
-            @PathVariable Long appointmentId,
+            @PathVariable
+            @Positive(message = "Appointment ID must be greater than zero")
+            Long appointmentId,
+
             @RequestParam
             @NotBlank(message = "Cancellation reason is required")
-            @Size(max = 1000, message = "Cancellation reason cannot exceed 1000 characters")
+            @Size(
+                    max = 1000,
+                    message = "Cancellation reason cannot exceed 1000 characters"
+            )
             String cancellationReason) {
 
         AppointmentResponse response =
@@ -118,7 +131,9 @@ public class AppointmentController {
     // 5. Get appointment by ID
     @GetMapping("/{appointmentId}")
     public ResponseEntity<ApiResponse<AppointmentResponse>> getAppointmentById(
-            @PathVariable Long appointmentId) {
+            @PathVariable
+            @Positive(message = "Appointment ID must be greater than zero")
+            Long appointmentId) {
 
         AppointmentResponse response =
                 appointmentService.getAppointmentById(appointmentId);
@@ -149,7 +164,9 @@ public class AppointmentController {
     // 7. Get appointments by patient ID
     @GetMapping("/patient/{patientId}")
     public ResponseEntity<ApiResponse<List<AppointmentSummaryResponse>>> getAppointmentsByPatientId(
-            @PathVariable Long patientId) {
+            @PathVariable
+            @Positive(message = "Patient ID must be greater than zero")
+            Long patientId) {
 
         List<AppointmentSummaryResponse> response =
                 appointmentService.getAppointmentsByPatientId(patientId);
@@ -165,7 +182,9 @@ public class AppointmentController {
     // 8. Get appointments by doctor ID
     @GetMapping("/doctor/{doctorId}")
     public ResponseEntity<ApiResponse<List<AppointmentSummaryResponse>>> getAppointmentsByDoctorId(
-            @PathVariable Long doctorId) {
+            @PathVariable
+            @Positive(message = "Doctor ID must be greater than zero")
+            Long doctorId) {
 
         List<AppointmentSummaryResponse> response =
                 appointmentService.getAppointmentsByDoctorId(doctorId);
@@ -181,7 +200,9 @@ public class AppointmentController {
     // 9. Get appointments by hospital ID
     @GetMapping("/hospital/{hospitalId}")
     public ResponseEntity<ApiResponse<List<AppointmentSummaryResponse>>> getAppointmentsByHospitalId(
-            @PathVariable Long hospitalId) {
+            @PathVariable
+            @Positive(message = "Hospital ID must be greater than zero")
+            Long hospitalId) {
 
         List<AppointmentSummaryResponse> response =
                 appointmentService.getAppointmentsByHospitalId(hospitalId);
@@ -213,7 +234,7 @@ public class AppointmentController {
     // 11. Search appointments using filters
     @PostMapping("/search")
     public ResponseEntity<ApiResponse<List<AppointmentSummaryResponse>>> searchAppointments(
-            @RequestBody AppointmentSearchRequest request) {
+            @Valid @RequestBody AppointmentSearchRequest request) {
 
         List<AppointmentSummaryResponse> response =
                 appointmentService.searchAppointments(request);
@@ -229,7 +250,9 @@ public class AppointmentController {
     // 12. Confirm appointment
     @PatchMapping("/{appointmentId}/confirm")
     public ResponseEntity<ApiResponse<AppointmentResponse>> confirmAppointment(
-            @PathVariable Long appointmentId) {
+            @PathVariable
+            @Positive(message = "Appointment ID must be greater than zero")
+            Long appointmentId) {
 
         AppointmentResponse response =
                 appointmentService.confirmAppointment(appointmentId);
@@ -245,7 +268,9 @@ public class AppointmentController {
     // 13. Complete appointment
     @PatchMapping("/{appointmentId}/complete")
     public ResponseEntity<ApiResponse<AppointmentResponse>> completeAppointment(
-            @PathVariable Long appointmentId) {
+            @PathVariable
+            @Positive(message = "Appointment ID must be greater than zero")
+            Long appointmentId) {
 
         AppointmentResponse response =
                 appointmentService.completeAppointment(appointmentId);

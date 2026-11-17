@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AppointmentMapper {
 
-    // Convert AppointmentRequest to Appointment Entity
+    // 1. Convert AppointmentRequest to Appointment Entity
     public Appointment toEntity(AppointmentRequest request) {
 
         return Appointment.builder()
@@ -32,7 +32,7 @@ public class AppointmentMapper {
                 .build();
     }
 
-    // Convert Appointment Entity to AppointmentResponse
+    // 2. Convert Appointment Entity to AppointmentResponse
     public AppointmentResponse toResponse(Appointment appointment) {
 
         return AppointmentResponse.builder()
@@ -54,7 +54,7 @@ public class AppointmentMapper {
                 .build();
     }
 
-    // Convert Appointment Entity to Summary Response
+    // 3. Convert Appointment Entity to Summary Response
     public AppointmentSummaryResponse toSummaryResponse(
             Appointment appointment) {
 
@@ -72,7 +72,7 @@ public class AppointmentMapper {
                 .build();
     }
 
-    // Update existing Appointment Entity
+    // 4. Update existing Appointment Entity
     public void updateEntity(
             Appointment appointment,
             AppointmentUpdateRequest request) {
