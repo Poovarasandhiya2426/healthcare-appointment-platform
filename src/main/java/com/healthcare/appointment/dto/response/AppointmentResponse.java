@@ -48,6 +48,8 @@ public class AppointmentResponse {
 
     private String cancellationReason;
 
+    private String rescheduleReason;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;

@@ -49,6 +49,7 @@ public class AppointmentMapper {
                 .reason(appointment.getReason())
                 .doctorNotes(appointment.getDoctorNotes())
                 .cancellationReason(appointment.getCancellationReason())
+                .rescheduleReason(appointment.getRescheduleReason())
                 .createdAt(appointment.getCreatedAt())
                 .updatedAt(appointment.getUpdatedAt())
                 .build();

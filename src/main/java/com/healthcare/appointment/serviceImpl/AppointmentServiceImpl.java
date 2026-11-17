@@ -45,13 +45,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     private final AppointmentMapper appointmentMapper;
 
-    /*
-     * Active statuses are considered when checking
-     * doctor appointment slot availability.
-     *
-     * RESCHEDULED is also included to prevent
-     * another appointment from using the same slot.
-     */
+    // Active appointment statuses
     private static final List<AppointmentStatus> ACTIVE_STATUSES =
             List.of(
                     AppointmentStatus.PENDING,
@@ -158,6 +152,11 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         appointment.setEndTime(
                 request.getNewEndTime()
+        );
+
+        // Save reschedule reason
+        appointment.setRescheduleReason(
+                request.getRescheduleReason().trim()
         );
 
         appointment.setStatus(
@@ -398,10 +397,6 @@ public class AppointmentServiceImpl implements AppointmentService {
         Appointment appointment =
                 getAppointmentEntity(appointmentId);
 
-        /*
-         * Both PENDING and RESCHEDULED appointments
-         * can be confirmed.
-         */
         if (appointment.getStatus() != AppointmentStatus.PENDING
                 && appointment.getStatus() != AppointmentStatus.RESCHEDULED) {
 

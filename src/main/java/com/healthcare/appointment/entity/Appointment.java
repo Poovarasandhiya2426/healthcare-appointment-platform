@@ -21,32 +21,26 @@ import java.time.LocalDateTime;
 @Table(
         name = "appointments",
         indexes = {
-
                 @Index(
                         name = "idx_appointment_patient",
                         columnList = "patient_id"
                 ),
-
                 @Index(
                         name = "idx_appointment_doctor",
                         columnList = "doctor_id"
                 ),
-
                 @Index(
                         name = "idx_appointment_hospital",
                         columnList = "hospital_id"
                 ),
-
                 @Index(
                         name = "idx_appointment_date",
                         columnList = "appointment_date"
                 ),
-
                 @Index(
                         name = "idx_appointment_status",
                         columnList = "status"
                 ),
-
                 @Index(
                         name = "idx_appointment_doctor_date_status",
                         columnList = "doctor_id, appointment_date, status"
@@ -114,6 +108,10 @@ public class Appointment {
     // Cancellation reason
     @Column(name = "cancellation_reason", length = 1000)
     private String cancellationReason;
+
+    // Reschedule reason
+    @Column(name = "reschedule_reason", length = 1000)
+    private String rescheduleReason;
 
     // Created timestamp
     @Column(
